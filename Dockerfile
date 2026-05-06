@@ -13,4 +13,8 @@ RUN chmod +x /entrypoint.sh
 # NTP standard port
 EXPOSE 123/udp
 
+# Healthcheck to verify chrony is running and responding
+HEALTHCHECK --interval=60s --timeout=5s --start-period=10s --retries=3 \
+  CMD chronyc tracking || exit 1
+
 ENTRYPOINT ["/entrypoint.sh"]

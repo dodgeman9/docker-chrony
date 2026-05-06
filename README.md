@@ -1,5 +1,7 @@
 # docker-chrony
 
+[![Build Status](https://github.com/dodgeman9/docker-chrony/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/dodgeman9/docker-chrony/actions/workflows/docker-publish.yml)
+
 This Docker image provides a Chrony service for time synchronization.
 
 ## Build
