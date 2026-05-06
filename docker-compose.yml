@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  chrony:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chrony
+    image: dodgeman9/docker-chrony:latest
+    environment:
+      # List of NTP servers to use. If not provided, defaults to '0.pool.ntp.org 1.pool.ntp.org'.
+      # You can provide multiple servers separated by spaces.
+      - NTP_SERVERS=0.pool.ntp.org 1.pool.ntp.org 1.europe.pool.ntp.org 2.europe.pool.ntp.org
+      # Optional: Specify a list of hosts/IPs allowed to query the time server.
+      # If not provided, it defaults to 'all' in chrony.conf.
+      # Example: - CHRONY_ALLOW_LIST=192.168.1.0/24 10.0.0.5
+      - CHRONY_ALLOW_LIST=192.168.1.0/24
+    cap_add:
+      # Required for the container to set the system clock
+      - SYS_TIME
+    restart: unless-stopped
+    ports:
+      - "123:123/udp" # NTP standard port
