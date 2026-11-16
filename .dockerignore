@@ -1,0 +1,13 @@
+.git
+.github
+.gitignore
+.env
+.env.*
+*.env
+*.pem
+*.key
+*.p12
+*.pfx
+README.md
+LICENSE
+docker-compose.yml
