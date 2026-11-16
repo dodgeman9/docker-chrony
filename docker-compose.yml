@@ -1,0 +1,23 @@
+services:
+  chrony:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chrony
+    image: dodgeman9/chrony:latest
+    environment:
+      # Optional: Set container timezone (requires tzdata, included in image)
+      - TZ=UTC
+      # List of NTP servers to use (space-separated). Defaults to '0.pool.ntp.org 1.pool.ntp.org'.
+      - NTP_SERVERS=0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org 3.pool.ntp.org
+      # Optional: Space-separated list of subnets/IPs allowed to query the time server.
+      # Defaults to 'all' if not provided.
+      - CHRONY_ALLOW_LIST=192.168.1.0/24
+      # Optional: Set NOCLOCK=true if running without SYS_TIME (NTP server only, won't adjust host clock)
+      - NOCLOCK=false
+    cap_add:
+      # Required for chronyd to discipline the host/container system clock
+      - SYS_TIME
+    restart: unless-stopped
+    ports:
+      - "123:123/udp" # NTP standard port
